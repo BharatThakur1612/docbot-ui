@@ -10,8 +10,16 @@ const SideBar = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getProjects().then((data) => setProjects(data));
-    }, []);
+        getProjects()
+            .then((response) => {
+                if(response.status !== 200) {
+                    setProjects([])
+                }
+                setProjects(response.data)
+            })
+            .catch(() => setProjects([]));
+    }, [showModal]);
+
     return (
         <div style={{ height: '100vh', width: '20vw', backgroundColor: '#0ff' }}>
             <UploadModal setShowModal={setShowModal} showModal={showModal} />
@@ -26,9 +34,9 @@ const SideBar = () => {
                         Create Project
                     </Button>
                 </div>
-                {projects.map((p) => (
+                {projects.map((project) => (
                     <Typography
-                        onClick={() => navigate(`/${p.name}`)}
+                        onClick={() => navigate(`/${project.project_name}`)}
                         variant="h5"
                         sx={{
                             padding: '0 1rem',
@@ -37,7 +45,7 @@ const SideBar = () => {
                             cursor: 'pointer',
                         }}
                     >
-                        {p.name}
+                        {project.project_name}
                     </Typography>
                 ))}
             </Box>
