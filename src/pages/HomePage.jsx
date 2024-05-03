@@ -4,7 +4,7 @@ import ChatBox from "../components/ChatBox";
 
 const HomePage = () => {
     return (
-        <Box>
+        <Box sx={{ display: 'flex' }}>
             <SideBar />
             <ChatBox />
         </Box>

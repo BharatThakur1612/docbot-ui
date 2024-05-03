@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import { getProjects } from '../apis/apis';
 import UploadModal from './UploadModal';
@@ -7,16 +7,15 @@ import UploadModal from './UploadModal';
 const SideBar = () => {
     const [projects, setProjects] = useState([]);
     const [showModal, setShowModal] = useState(false);
-    const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         getProjects().then((data) => setProjects(data));
-    }, [location.pathname]);
+    }, []);
     return (
-        <>
+        <div style={{ height: '100vh', width: '20vw', backgroundColor: '#0ff' }}>
             <UploadModal setShowModal={setShowModal} showModal={showModal} />
-            <Box sx={{ height: '100vh', width: '18vw', backgroundColor: '#0ff' }}>
+            <Box>
                 <div style={{ width: '90%', margin: 'auto' }}>
                     <Button
                         sx={{ margin: '1rem 0' }}
@@ -42,7 +41,7 @@ const SideBar = () => {
                     </Typography>
                 ))}
             </Box>
-        </>
+        </div>
     );
 };
 

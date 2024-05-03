@@ -20,7 +20,7 @@ const ChatBox = ({ projectName }) => {
     }
 
     return (
-        <div style={{ display: 'block' }}>
+        <div style={{ display: 'block', border: '1px solid black', float: 'left' }}>
             <UploadModal currentProjectName={projectName} setShowModal={setShowModal}  showModal={showModal} />
             <Box justifyContent='space-between' sx={{ display: 'flex', height: '97vh', width: '80vw', padding: '3vh 1vw 0 1vw' }}>
                 <Typography variant='h5'>{projectName}</Typography>
