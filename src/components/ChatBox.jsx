@@ -53,7 +53,7 @@ const ChatBox = ({ projectName }) => {
         }
     };
 
-    if (false) {
+    if (!projectName) {
         return (
             <div
                 style={{
