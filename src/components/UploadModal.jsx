@@ -151,7 +151,7 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName, setProjects 
                         }}
                     >
                         {selectedFile ? (
-                            <Typography>{selectedFile.name}</Typography>
+                            <Typography color="white">{selectedFile.name}</Typography>
                         ) : (
                             <Typography color="white">Upload File/Drag or drop files</Typography>
                         )}
