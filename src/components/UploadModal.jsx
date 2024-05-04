@@ -16,7 +16,7 @@ const style = {
     p: 4,
 };
 
-const UploadModal = ({ showModal, setShowModal, currentProjectName }) => {
+const UploadModal = ({ showModal, setShowModal, currentProjectName, setProjects }) => {
     const [projectName, setProjectName] = useState(currentProjectName || '');
     const [selectedFile, setSelectedFile] = useState('');
     const fileInput = document.createElement('input');
@@ -62,6 +62,8 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName }) => {
                         setOpenSnackbar(true);
                         return;
                     }
+                    setMessage('Project created');
+                    setProjects(curr => [...curr, response.data.project_name]);
                     setOpenSnackbar(true);
                 })
                 .catch((err) => console.log(err));
