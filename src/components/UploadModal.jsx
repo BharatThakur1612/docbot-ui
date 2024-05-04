@@ -20,9 +20,9 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName }) => {
     const [projectName, setProjectName] = useState(currentProjectName || '');
     const [selectedFile, setSelectedFile] = useState('');
     const fileInput = document.createElement('input');
+    fileInput.type = 'file';
     const [message, setMessage] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
-    fileInput.type = 'file';
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -30,25 +30,29 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName }) => {
     };
 
     const handleSubmitButtonClick = () => {
-        const formData = new FormData();
-        formData.append('file', selectedFile);
-        formData.append('file_name', selectedFile.name);
-        formData.append('project_name', projectName);
+        if (selectedFile.name) {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('file_name', selectedFile.name);
+            formData.append('project_name', projectName);
 
-        uploadDoc(formData)
-            .then((response) => {
-                if (response.status !== 201) {
-                    setMessage('Failed to upload document');
+            uploadDoc(formData)
+                .then((response) => {
+                    if (response.status !== 201) {
+                        setMessage('Failed to upload document');
+                        setOpenSnackbar(true);
+                        return;
+                    }
+                    setMessage('Upload complete');
                     setOpenSnackbar(true);
-                    return;
-                }
-                setMessage('Upload complete');
-                setOpenSnackbar(true);
-            })
-            .catch(() => {
-                setMessage('Error while uploading');
-                setOpenSnackbar(true);
-            });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setMessage('Error while uploading');
+                    setOpenSnackbar(true);
+                });
+            setSelectedFile('');
+        }
         if (!currentProjectName) {
             const new_project_data = { project_name: projectName };
             createProject(new_project_data)
@@ -59,12 +63,10 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName }) => {
                         return;
                     }
                     setOpenSnackbar(true);
-                    setMessage('Project created, Pls Refresh :)');
                 })
-                .catch(() => {});
+                .catch((err) => console.log(err));
         }
         setShowModal(false);
-        setSelectedFile('');
     };
 
     return (
