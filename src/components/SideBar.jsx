@@ -22,7 +22,7 @@ const SideBar = () => {
 
     return (
         <div style={{ height: '100vh', width: '22vw', backgroundColor: '#333333' }}>
-            <UploadModal setShowModal={setShowModal} showModal={showModal} />
+            <UploadModal setShowModal={setShowModal} showModal={showModal} setProjects={setProjects} />
             <Box>
                 <div style={{ width: '90%', margin: 'auto' }}>
                     <Button
