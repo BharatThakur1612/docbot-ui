@@ -10,10 +10,18 @@ const SideBar = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getProjects().then((data) => setProjects(data));
-    }, []);
+        getProjects()
+            .then((response) => {
+                if (response.status !== 200) {
+                    setProjects([]);
+                }
+                setProjects(response.data);
+            })
+            .catch(() => setProjects([]));
+    }, [showModal]);
+
     return (
-        <div style={{ height: '100vh', width: '20vw', backgroundColor: '#0ff' }}>
+        <div style={{ height: '100vh', width: '22vw', backgroundColor: '#333333' }}>
             <UploadModal setShowModal={setShowModal} showModal={showModal} />
             <Box>
                 <div style={{ width: '90%', margin: 'auto' }}>
@@ -26,18 +34,25 @@ const SideBar = () => {
                         Create Project
                     </Button>
                 </div>
-                {projects.map((p) => (
+                {projects.map((project) => (
                     <Typography
-                        onClick={() => navigate(`/${p.name}`)}
-                        variant="h5"
+                        onClick={() => navigate(`/${project.project_name}`)}
+                        variant="body2"
                         sx={{
                             padding: '0 1rem',
-                            marginTop: '0.5rem',
-                            borderBottom: '1px solid black',
+                            marginTop: '1rem',
                             cursor: 'pointer',
+                            color: '#ffffff',
+                            margin: '0 !important',
+                            padding: '10px 20px',
+                            background: '#5c5a59',
+                            margin: '12px !important',
+                            borderRadius: '10px',
+                            background:
+                                'linear-gradient(90deg, rgba(24, 24, 24, 1) 0%, rgba(49, 54, 54, 1) 95%, rgba(58, 65, 65, 1) 120%)',
                         }}
                     >
-                        {p.name}
+                        {project.project_name}
                     </Typography>
                 ))}
             </Box>

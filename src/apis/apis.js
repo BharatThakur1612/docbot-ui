@@ -4,29 +4,33 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export const getProjects = async () => {
     try {
-        // const res = await axios.get(`${API_URL}/projects`);
-        // console.log(res.body)
-        return [{ name: 'Test', created_at: new Date() }, { name: 'Test1', created_at: new Date() }, { name: 'Test3', created_at: new Date() }];
+        return await axios.get(`${API_URL}/projects/`);
     } catch (err) {
-        console.log(err);
+        return err;
+    }
+}
+
+export const createProject = async (data) => {
+    try {
+        return await axios.post(`${API_URL}/projects/`, data);
+    } catch (err) {
+        return err;
     }
 }
 
 export const uploadDoc = async (doc) => {
+    const headers = { 'content-type': 'multipart/form-data' }
     try {
-        await axios.post(`${API_URL}/upload/doc`, { data: doc });
+        return await axios.post(`${API_URL}/upload/doc`, doc, headers);
     } catch (err) {
-        console.log(err);
+        return err;
     }
 }
 
 export const askQuestion = async (question, project_name) => {
     try {
-        const res = await axios.post(`${API_URL}/question-response`, { question, project_name });
-        console.log(res.body)
-        return { response: 'Yes this workss' };
+        return await axios.post(`${API_URL}/question-response`, { question, project_name });
     } catch (err) {
-        console.log(err);
+        return err;
     }
 }
-
