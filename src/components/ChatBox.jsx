@@ -6,6 +6,8 @@ import UploadModal from './UploadModal';
 import TextField from '@mui/material/TextField';
 import { askQuestion } from '../apis/apis';
 
+import './styles.css';
+
 const ChatBox = ({ projectName }) => {
     const [showModal, setShowModal] = useState(false);
     const [messagePairs, setMessagePairs] = useState([]);
@@ -51,7 +53,7 @@ const ChatBox = ({ projectName }) => {
         }
     };
 
-    if (!projectName) {
+    if (false) {
         return (
             <div
                 style={{
@@ -95,10 +97,13 @@ const ChatBox = ({ projectName }) => {
                 }}
             >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Typography variant="h5" fontWeight={900} ml={2}>{projectName}</Typography>
+                    <Typography variant="h5" fontWeight={900} ml={2} color="white">
+                        {projectName}
+                    </Typography>
                     <Button
                         sx={{ height: '35px', width: '200px' }}
                         fullWidth
+                        className="button"
                         variant="contained"
                         onClick={() => setShowModal(true)}
                     >
@@ -106,10 +111,10 @@ const ChatBox = ({ projectName }) => {
                     </Button>
                 </Box>
                 <Box flex={1} overflow="auto" margin="12px 0">
-                    {messagePairs.map((pair, index) => (
+                    {messagePairs?.map((pair, index) => (
                         <React.Fragment key={index}>
                             <Typography
-                                variant="body2"
+                                variant="body1"
                                 textAlign="right"
                                 style={{
                                     marginBottom: '5px',
@@ -120,18 +125,18 @@ const ChatBox = ({ projectName }) => {
                                     style={{
                                         display: 'inline-block',
                                         padding: '10px 20px',
-                                        background: '#ededed',
                                         borderRadius: '20px',
                                         textAlign: 'left',
                                         maxWidth: '50%',
                                         wordWrap: 'break-word',
+                                        color: 'white',
                                     }}
                                 >
                                     {pair.user}
                                 </span>
                             </Typography>
                             <Typography
-                                variant="body2"
+                                variant="body1"
                                 style={{ marginBottom: '5px', marginLeft: '10px' }}
                                 textAlign="left"
                             >
@@ -139,10 +144,10 @@ const ChatBox = ({ projectName }) => {
                                     style={{
                                         display: 'inline-block',
                                         padding: '10px 20px',
-                                        background: '#ededed',
                                         borderRadius: '20px',
                                         maxWidth: '50%',
                                         wordWrap: 'break-word',
+                                        color: 'white',
                                     }}
                                 >
                                     {pair.bot || '...'}
@@ -154,15 +159,23 @@ const ChatBox = ({ projectName }) => {
                 <TextField
                     sx={{ width: '75vw', maxWidth: '100%' }}
                     fullWidth
+                    className="textField"
                     label="Message DocBot"
                     id="messageDocbot"
                     onChange={handleMessageChange}
                     onKeyPress={handleKeyPress}
                     value={inputMessage} // Use inputMessage for input value
                 />
-            <Typography component="p" variant="helperText" textAlign="center" fontSize={12} mt={1} color="#333333">
-                DocGPT can make mistakes. Consider checking important information.
-            </Typography>
+                <Typography
+                    component="p"
+                    variant="helperText"
+                    textAlign="center"
+                    fontSize={12}
+                    mt={1}
+                    color="#333333"
+                >
+                    DocGPT can make mistakes. Consider checking important information.
+                </Typography>
             </Box>
         </div>
     );

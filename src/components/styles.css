@@ -1,0 +1,46 @@
+.button {
+    background-color: #343434 !important;
+    border-radius: 8px !important;
+    border: 2px solid transparent !important;
+    &:hover {
+        background-color: white !important;
+        border: 2px solid #343434;
+        color: #343434;
+        font-weight: 500;
+    }
+}
+
+.textField {
+    & .MuiInputLabel-root {
+        color: white !important;
+    }
+    & .MuiOutlinedInput-root {
+        color: white !important;
+        border-radius: 8px;
+    }
+    & .MuiOutlinedInput-notchedOutline {
+        border: 1px solid white !important;
+    }
+    & .MuiInputBase-input {
+        color: white !important;
+    }
+}
+
+.icon {
+    display: none;
+    margin: 0 !important;
+}
+.typo {
+    &:hover {
+        & .icon {
+            display: block;
+            font-size: 0.875rem;
+            height: 1.25rem;
+            fill: white !important
+        }
+    }
+} 
+
+.close {
+
+}

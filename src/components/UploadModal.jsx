@@ -3,6 +3,8 @@ import Snackbar from '@mui/material/Snackbar';
 
 import { useState } from 'react';
 import { uploadDoc, createProject } from '../apis/apis';
+import './styles.css';
+import CloseIcon from '@mui/icons-material/Close';
 
 const style = {
     position: 'absolute',
@@ -12,8 +14,10 @@ const style = {
     width: '35vw',
     bgcolor: 'background.paper',
     border: '1px solid #000',
-    boxShadow: 24,
+    backgroundColor: '#111211',
     p: 4,
+    borderRadius: '12px',
+    boxShadow: '5px 5px 12px #161515, -5px -5px 12px #1e1d1d',
 };
 
 const UploadModal = ({ showModal, setShowModal, currentProjectName, setProjects }) => {
@@ -91,16 +95,32 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName, setProjects 
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography
-                        variant="h5"
-                        fullWidth
-                        sx={{
-                            textAlign: 'center',
-                            mb: '0.5rem',
-                        }}
+                    <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        mb="1rem"
                     >
-                        {currentProjectName ? 'Upload File' : 'Enter Project Details'}
-                    </Typography>
+                        <Typography
+                            variant="h5"
+                            fullWidth
+                            sx={{
+                                color: 'white',
+                            }}
+                        >
+                            {currentProjectName ? 'Upload File' : 'Enter Project Details'}
+                        </Typography>
+                        <CloseIcon
+                            onClick={() => {
+                                setSelectedFile('');
+                                setShowModal(false);
+                            }}
+                            style={{
+                                color: 'white',
+                                cursor: 'pointer',
+                            }}
+                        />
+                    </Box>
 
                     <TextField
                         fullWidth
@@ -108,19 +128,23 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName, setProjects 
                         disabled={Boolean(currentProjectName)}
                         placeholder="Enter Project Name"
                         label={currentProjectName || 'Project Name'}
+                        className="textField"
+                        style={{
+                            borderRadius: '8px',
+                        }}
                     />
 
                     <div
                         style={{
                             marginTop: '1rem',
-                            borderRadius: '0.2rem',
                             width: '34.8vw',
                             height: '30vh',
-                            border: '1px dashed black',
+                            border: '1px dashed white',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
                             cursor: 'pointer',
+                            borderRadius: '8px',
                         }}
                         onClick={() => {
                             document.getElementById('fileInput').click();
@@ -129,7 +153,7 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName, setProjects 
                         {selectedFile ? (
                             <Typography>{selectedFile.name}</Typography>
                         ) : (
-                            <Typography>Upload File/Drag or drop files</Typography>
+                            <Typography color="white">Upload File/Drag or drop files</Typography>
                         )}
                         <input
                             id="fileInput"
@@ -138,9 +162,16 @@ const UploadModal = ({ showModal, setShowModal, currentProjectName, setProjects 
                             onChange={handleFileChange}
                         />
                     </div>
-                    <Button variant="contained" onClick={handleSubmitButtonClick} sx={{ mt: 2 }}>
-                        Submit
-                    </Button>
+                    <Box display="flex" justifyContent="flex-end">
+                        <Button
+                            className="button"
+                            variant="contained"
+                            onClick={handleSubmitButtonClick}
+                            sx={{ mt: 2, alignSelf: 'right' }}
+                        >
+                            Submit
+                        </Button>
+                    </Box>
                 </Box>
             </Modal>
         </>

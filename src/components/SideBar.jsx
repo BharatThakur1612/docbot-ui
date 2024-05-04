@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
 import { getProjects } from '../apis/apis';
 import UploadModal from './UploadModal';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import './styles.css';
 
 const SideBar = () => {
     const [projects, setProjects] = useState([]);
@@ -28,31 +30,39 @@ const SideBar = () => {
                     <Button
                         sx={{ margin: '1rem 0' }}
                         fullWidth
+                        className="button"
                         variant="contained"
                         onClick={() => setShowModal(true)}
                     >
                         Create Project
                     </Button>
                 </div>
-                {projects.map((project) => (
+                {(
+                    projects || [
+                        {
+                            project_name: 'Hello World',
+                        },
+                    ]
+                )?.map((project) => (
                     <Typography
                         onClick={() => navigate(`/${project.project_name}`)}
                         variant="body2"
+                        className='typo'
                         sx={{
-                            padding: '0 1rem',
                             marginTop: '1rem',
                             cursor: 'pointer',
                             color: '#ffffff',
-                            margin: '0 !important',
                             padding: '10px 20px',
-                            background: '#5c5a59',
                             margin: '12px !important',
                             borderRadius: '10px',
                             background:
                                 'linear-gradient(90deg, rgba(24, 24, 24, 1) 0%, rgba(49, 54, 54, 1) 95%, rgba(58, 65, 65, 1) 120%)',
                         }}
                     >
-                        {project.project_name}
+                        <Box display="flex" justifyContent="space-between" alignItems="center">
+                            {project.project_name}
+                            <KeyboardArrowRightIcon class="icon" />
+                        </Box>
                     </Typography>
                 ))}
             </Box>
